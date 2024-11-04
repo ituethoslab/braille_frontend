@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braille STL Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            background-color: #f4f4f9;
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 700px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .input-section, #stl-display, #submit-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        textarea, select, input, button {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #scene {
+            width: 100%;
+            height: 600px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #download-button, #submit-button {
+            align-self: center;
+            width: 100%;
+        }
+
+        #dimension-inputs {
+            display: flex;
+            gap: 15px;
+          }
+
+        #dimension-inputs input {
+            width: 25%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <h1>Text to 3D Braille Generator</h1>
+        <p> Welcome to the Text to 3D print web app. 
+        In this page, you can translate your text to 3D brailleand preview the file prior to sending it to us to be printed. To use the tool you must: </p>
+        <ul>
+        <li> Choose what language you are translating from, at the moment we only support Danish and English
+        <li> Write a short description about how this sign will be used 
+        </li>
+        </ul>
+        <div class="input-section" id="input-box">
+            <textarea id="input-text" placeholder="Enter text for Braille conversion"></textarea>
+            <label for="language-selector">Choose Language:</label>
+            <select id="language-selector">
+                <option value="en">English</option>
+                <option value="da">Danish</option>
+            </select>
+
+            <!-- Dimensions Input -->
+            <label for="dimension-input">Please write the dimensions for the sign</label>
+            <div id="dimension-inputs">
+              <input type="number" id="width-input" placeholder="Width in cm" min="1" max="25">
+              <input type="number" id="height-input" placeholder="Height in cm" min="1" max="21">
+              <input type="number" id="thickness-input" placeholder="Thickness in mm" min="5" max="500">
+        </div>
+        <p> Please provide a description of where this sign will be and what purpose it will serve: </p>
+            <textarea id="usage-description" placeholder="Describe the use of this object"></textarea>
+            
+            <button id="generate-button">Generate 3D model</button>
+        </div>
+
+        <!-- STL Display Section -->
+        <div id="stl-display">
+            <div id="scene"></div>
+            <button id="download-button">Download STL file</button>
+        </div>
+
+      <p> If you are happy with the generated 3D model, you can send it to us so that we print it. Our current wait time for prints is around 1 week </p>
+
+        <!-- Submit Section -->
+        <div id="submit-box">
+            <button id="submit-button">Send Application to Print</button>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
+
